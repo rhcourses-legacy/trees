@@ -30,14 +30,22 @@ func (e *Element[T]) String() string {
 }
 
 // addLeft adds a new element to the left of the current element.
+// If the new element is not empty, this method has no effect.
+// Returns the left child.
 func (e *Element[T]) addLeft() *Element[T] {
-	e.left = NewElement[T]()
+	if e.left == nil {
+		e.left = NewElement[T]()
+	}
 	return e.left
 }
 
 // addRight adds a new element to the right of the current element.
+// If the new element is not empty, this method has no effect.
+// Returns the right child.
 func (e *Element[T]) addRight() *Element[T] {
-	e.right = NewElement[T]()
+	if e.right == nil {
+		e.right = NewElement[T]()
+	}
 	return e.right
 }
 
