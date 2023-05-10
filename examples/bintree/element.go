@@ -75,3 +75,11 @@ func (e *Element[T]) PreOrderValues() []T {
 	}
 	return append(append([]T{e.value}, e.left.PreOrderValues()...), e.right.PreOrderValues()...)
 }
+
+// PostOrderValues returns a slice of values in the tree in post-order traversal.
+func (e *Element[T]) PostOrderValues() []T {
+	if e.IsEmpty() {
+		return []T{}
+	}
+	return append(append(e.left.PostOrderValues(), e.right.PostOrderValues()...), e.value)
+}

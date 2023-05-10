@@ -63,3 +63,19 @@ func TestElementTree_PreOrderValues(t *testing.T) {
 
 	testhelpers.AssertListsEqual(t, expected, actual)
 }
+
+func TestElementTree_PostOrderValues(t *testing.T) {
+	root := NewElement[string]()
+	root.SetValue("root")
+	root.left.SetValue("L")
+	root.right.SetValue("R")
+	root.left.left.SetValue("LL")
+	root.left.right.SetValue("LR")
+	root.right.left.SetValue("RL")
+	root.right.right.SetValue("RR")
+
+	expected := []string{"LL", "LR", "L", "RL", "RR", "R", "root"}
+	actual := root.PostOrderValues()
+
+	testhelpers.AssertListsEqual(t, expected, actual)
+}
