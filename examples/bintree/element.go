@@ -83,3 +83,19 @@ func (e *Element[T]) PostOrderValues() []T {
 	}
 	return append(append(e.left.PostOrderValues(), e.right.PostOrderValues()...), e.value)
 }
+
+// MermaidLines returns a slice of strings, each of which is a line in a Mermaid graph.
+// The slice contains the node values and edges, but no header.
+func (e *Element[T]) MermaidLines() []string {
+	result := []string{}
+	if e.IsEmpty() {
+		return result
+	}
+	if !e.left.IsEmpty() {
+		result = append(result, fmt.Sprintf("%v --> %v", e.value, e.left.value))
+	}
+	if !e.right.IsEmpty() {
+		result = append(result, fmt.Sprintf("%v --> %v", e.value, e.right.value))
+	}
+	return append(append(result, e.left.MermaidLines()...), e.right.MermaidLines()...)
+}
