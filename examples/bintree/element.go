@@ -59,3 +59,11 @@ func (e *Element[T]) Value() T {
 	}
 	return e.value
 }
+
+// InOrderValues returns a slice of values in the tree in in-order traversal.
+func (e *Element[T]) InOrderValues() []T {
+	if e.IsEmpty() {
+		return []T{}
+	}
+	return append(append(e.left.InOrderValues(), e.value), e.right.InOrderValues()...)
+}

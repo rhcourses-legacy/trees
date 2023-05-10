@@ -1,6 +1,10 @@
 package bintree
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/rhcourses/trees/testhelpers"
+)
 
 func TestNewElement_IsEmpty(t *testing.T) {
 	e := NewElement[string]()
@@ -26,4 +30,20 @@ func TestElement_SetValue(t *testing.T) {
 	if e.Value() != "foo" {
 		t.Error("Element should have value 'foo', but got", e.Value())
 	}
+}
+
+func TestElementTree_InOrderValues(t *testing.T) {
+	root := NewElement[string]()
+	root.SetValue("root")
+	root.left.SetValue("L")
+	root.right.SetValue("R")
+	root.left.left.SetValue("LL")
+	root.left.right.SetValue("LR")
+	root.right.left.SetValue("RL")
+	root.right.right.SetValue("RR")
+
+	expected := []string{"LL", "L", "LR", "root", "RL", "R", "RR"}
+	actual := root.InOrderValues()
+
+	testhelpers.AssertListsEqual(t, expected, actual)
 }
