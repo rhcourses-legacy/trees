@@ -67,3 +67,11 @@ func (e *Element[T]) InOrderValues() []T {
 	}
 	return append(append(e.left.InOrderValues(), e.value), e.right.InOrderValues()...)
 }
+
+// PreOrderValues returns a slice of values in the tree in pre-order traversal.
+func (e *Element[T]) PreOrderValues() []T {
+	if e.IsEmpty() {
+		return []T{}
+	}
+	return append(append([]T{e.value}, e.left.PreOrderValues()...), e.right.PreOrderValues()...)
+}
