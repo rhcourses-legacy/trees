@@ -28,3 +28,34 @@ func (e *Element[T]) String() string {
 	}
 	return fmt.Sprintf("%v", e.value)
 }
+
+// addLeft adds a new element to the left of the current element.
+func (e *Element[T]) addLeft() *Element[T] {
+	e.left = NewElement[T]()
+	return e.left
+}
+
+// addRight adds a new element to the right of the current element.
+func (e *Element[T]) addRight() *Element[T] {
+	e.right = NewElement[T]()
+	return e.right
+}
+
+// SetValue sets the value of the element.
+// If the element is empty, two new elements are added to the left and right.
+func (e *Element[T]) SetValue(value T) {
+	if e.IsEmpty() {
+		e.addLeft()
+		e.addRight()
+	}
+	e.value = value
+}
+
+// Value returns the Value of this element.
+// Panics if the element is empty.
+func (e *Element[T]) Value() T {
+	if e.IsEmpty() {
+		panic("Value method called on an empty node.")
+	}
+	return e.value
+}
